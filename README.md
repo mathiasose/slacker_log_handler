@@ -37,7 +37,7 @@ If neither icon_url nor icon_emoji is set,
 * Set SLACK_API_KEY
 
 
-### Sample logging configuration
+### Sample Django logging configuration
 Logging reference: https://docs.djangoproject.com/en/1.7/topics/logging/
 
 Sends INFO and ERRORS to Slack, as well as errors to admin emails.
@@ -58,14 +58,14 @@ Sends INFO and ERRORS to Slack, as well as errors to admin emails.
             },
             'slack-error': {
                 'level':'ERROR',
-                'api_key: SLACK_API_KEY.
+                'api_key': SLACK_API_KEY,
                 'class':'slack_logger.SlackLogHandler',
                 'channel':'#general',
                 'stack_trace':True
             },
             'slack-info': {
                 'level':'INFO',
-                'api_key: SLACK_API_KEY.
+                'api_key': SLACK_API_KEY,
                 'class':'slack_logger.SlackLogHandler',
                 'channel':'#general',
                 'stack_trace':False
@@ -73,7 +73,7 @@ Sends INFO and ERRORS to Slack, as well as errors to admin emails.
         },
         'loggers': {
             'django.request': {
-                'handlers': ['mail_admins', 'slack-error'],
+                'handlers': ['mail_admins', 'slack-error', 'slack-info'],
                 'level': 'ERROR',
                 'propagate': True,
             },

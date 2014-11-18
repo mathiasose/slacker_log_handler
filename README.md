@@ -1,7 +1,7 @@
-slack-logger
+slack_log_handler
 ===================
 
-Python logger that posts to a Slack channel, using https://github.com/os/slacker.
+Python logg handler that posts to a Slack channel, using https://github.com/os/slacker.
 
 Created with the intention of using for a Django project,
 but some effort has been made to make it generic enough that any Python project could use it.
@@ -59,14 +59,14 @@ Sends INFO and ERRORS to Slack, as well as errors to admin emails.
             'slack-error': {
                 'level':'ERROR',
                 'api_key': SLACK_API_KEY,
-                'class':'slack_logger.SlackLogHandler',
+                'class':'slack_log_handler.SlackLogHandler',
                 'channel':'#general',
                 'stack_trace':True
             },
             'slack-info': {
                 'level':'INFO',
                 'api_key': SLACK_API_KEY,
-                'class':'slack_logger.SlackLogHandler',
+                'class':'slack_log_handler.SlackLogHandler',
                 'channel':'#general',
                 'stack_trace':False
             }

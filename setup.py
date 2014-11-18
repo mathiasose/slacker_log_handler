@@ -2,12 +2,12 @@
 from distutils.core import setup
 
 setup(
-    name='slack-logger',
-    version='0.1',
+    name='slack_log_handler',
+    version='0.2',
     author='Mathias Ose',
     author_email='mathias.ose@gmail.com',
 
-    packages=['slack_logger'],
+    packages=['slack_log_handler'],
     install_requires=[
         "slacker==0.4.0"
     ]

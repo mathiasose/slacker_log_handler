@@ -3,7 +3,7 @@ from distutils.core import setup
 
 setup(
     name='slack_log_handler',
-    version='0.2',
+    version='0.3',
     author='Mathias Ose',
     author_email='mathias.ose@gmail.com',
 

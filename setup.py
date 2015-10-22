@@ -9,6 +9,6 @@ setup(
 
     packages=['slack_log_handler'],
     install_requires=[
-        "slacker==0.4.0"
+        "slacker==0.7.3"
     ]
 )

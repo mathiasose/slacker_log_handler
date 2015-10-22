@@ -1,7 +1,8 @@
 slack_log_handler
 ===================
 
-Python logg handler that posts to a Slack channel, using https://github.com/os/slacker.
+Python log handler that posts to a Slack channel.
+Posts to the Slack API using https://github.com/os/slacker.
 
 Created with the intention of using for a Django project,
 but some effort has been made to make it generic enough that any Python project could use it.
@@ -15,9 +16,6 @@ Generate a key at https://api.slack.com/
 
 ### channel (required)
 Set which channel you want to post to, e.g. "#general".
-
-### stack_trace
-Whether to show the traceback leading to the log message. Defaults to false.
 
 ### username
 The username that will post to Slack. Defaults to "Python logger".
@@ -60,21 +58,12 @@ Sends INFO and ERRORS to Slack, as well as errors to admin emails.
                 'level':'ERROR',
                 'api_key': SLACK_API_KEY,
                 'class':'slack_log_handler.SlackLogHandler',
-                'channel':'#general',
-                'stack_trace':True
+                'channel':'#general'
             },
             'slack-info': {
                 'level':'INFO',
                 'api_key': SLACK_API_KEY,
                 'class':'slack_log_handler.SlackLogHandler',
-                'channel':'#general',
-                'stack_trace':False
-            }
-        },
-        'loggers': {
-            'django.request': {
-                'handlers': ['mail_admins', 'slack-error', 'slack-info'],
-                'level': 'ERROR',
                 'propagate': True,
             },
         }

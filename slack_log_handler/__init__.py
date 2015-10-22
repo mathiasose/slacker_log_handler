@@ -19,19 +19,14 @@ class SlackLogHandler(Handler):
             self.channel = '#' + self.channel
 
     def emit(self, record):
-        message = '{}'.format(record.getMessage())
-        if self.stack_trace and record.exc_info:
-            message += '\n'
-            message += '\n'.join(traceback.format_exception(*record.exc_info))
-
+        message = str(record.getMessage())
         attachments = [{
-            'fallback': self.username,
+            'fallback': message,
             'color': 'danger',
-            'author_name': self.username,
-            'title': self.username,
-            'text': message
+            'text': '\n'.join(traceback.format_exception(*record.exc_info))
         }]
         self.slack_chat.chat.post_message(
+            text=message,
             channel=self.channel,
             username=self.username,
             icon_url=self.icon_url,

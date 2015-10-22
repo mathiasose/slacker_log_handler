@@ -1,8 +1,18 @@
 import json
 import traceback
-from logging import Handler
+from logging import Handler, CRITICAL, ERROR, WARNING
 
 from slacker import Slacker
+
+ERROR_COLOR = 'danger'  # color name is built in to Slack API
+WARNING_COLOR = 'warning'  # color name is built in to Slack API
+INFO_COLOR = '#439FE0'
+
+COLORS = {
+    CRITICAL: ERROR_COLOR,
+    ERROR: ERROR_COLOR,
+    WARNING: WARNING_COLOR
+}
 
 
 class SlackLogHandler(Handler):
@@ -22,7 +32,7 @@ class SlackLogHandler(Handler):
         message = str(record.getMessage())
         attachments = [{
             'fallback': message,
-            'color': 'danger',
+            'color': COLORS.get(self.level, INFO_COLOR),
             'text': '\n'.join(traceback.format_exception(*record.exc_info))
         }]
         self.slack_chat.chat.post_message(

@@ -1,14 +1,14 @@
-slack_log_handler
+slacker_log_handler
 ===================
 
 Python log handler that posts to a Slack channel.
 Posts to the Slack API using https://github.com/os/slacker.
 
+For a different implementation using webhooks instead of Slacker,
+see https://github.com/claudetech/python-slack-log or read http://www.pythian.com/blog/logging-for-slackers/
+
 Created with the intention of using for a Django project,
 but some effort has been made to make it generic enough that any Python project could use it.
-
-For a simpler implementation using webhooks instead of slacker,
-see http://www.pythian.com/blog/logging-for-slackers/
 
 ## Options
 ### api_key (required)
@@ -31,7 +31,7 @@ If neither icon_url nor icon_emoji is set,
 
 ## Suggested Django configuration
 
-* Add 'slack_logger' to INSTALLED_APPS
+* Add 'slacker_log_handler' to INSTALLED_APPS
 * Set SLACK_API_KEY
 
 
@@ -55,15 +55,15 @@ Sends INFO and ERRORS to Slack, as well as errors to admin emails.
                 'class': 'django.utils.log.AdminEmailHandler'
             },
             'slack-error': {
-                'level':'ERROR',
+                'level': 'ERROR',
                 'api_key': SLACK_API_KEY,
-                'class':'slack_log_handler.SlackLogHandler',
-                'channel':'#general'
+                'class': 'slacker_log_handler.SlackerLogHandler',
+                'channel': '#general'
             },
             'slack-info': {
-                'level':'INFO',
+                'level': 'INFO',
                 'api_key': SLACK_API_KEY,
-                'class':'slack_log_handler.SlackLogHandler',
+                'class': 'slacker_log_handler.SlackerLogHandler',
                 'propagate': True,
             },
         }

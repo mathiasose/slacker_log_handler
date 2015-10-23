@@ -10,6 +10,9 @@ see https://github.com/claudetech/python-slack-log or read http://www.pythian.co
 Created with the intention of using for a Django project,
 but some effort has been made to make it generic enough that any Python project could use it.
 
+## Installation
+    pip install slacker-log-handler
+
 ## Options
 ### api_key (required)
 Generate a key at https://api.slack.com/

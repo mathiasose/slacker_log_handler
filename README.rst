@@ -30,6 +30,13 @@ Created with the intention of using for a Django project, but some
 effort has been made to make it generic enough that any Python project
 could use it.
 
+Installation
+------------
+
+.. code-block:: bash
+
+    pip install slacker-log-handler
+
 Options
 -------
 

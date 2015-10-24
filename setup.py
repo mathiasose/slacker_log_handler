@@ -12,7 +12,7 @@ setup(
     name='slacker_log_handler',
     packages=['slacker_log_handler'],
     py_modules=['slacker_log_handler'],
-    version='1.0.2',
+    version='1.1',
     description='Posts log events to Slack via API',
     long_description=readme('README.rst'),
     classifiers=[
@@ -31,7 +31,7 @@ setup(
         'Topic :: Office/Business :: Groupware',
     ],
     url='https://github.com/mathiasose/slacker_log_handler',
-    download_url='https://github.com/mathiasose/slacker_log_handler/tarball/1.0.2',
+    download_url='https://github.com/mathiasose/slacker_log_handler/tarball/1.1',
     author='Mathias Ose',
     author_email='mathias.ose@gmail.com',
     keywords=['slack', 'logging'],

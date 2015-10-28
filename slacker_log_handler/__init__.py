@@ -30,11 +30,13 @@ class SlackerLogHandler(Handler):
 
     def emit(self, record):
         message = str(record.getMessage())
-        attachments = [{
+        trace = {
             'fallback': message,
-            'color': COLORS.get(self.level, INFO_COLOR),
-            'text': '\n'.join(traceback.format_exception(*record.exc_info))
-        }]
+            'color': COLORS.get(self.level, INFO_COLOR)
+        }
+        if record.exc_info:
+            trace['text'] = '\n'.join(traceback.format_exception(*record.exc_info))
+        attachments = [trace]
         self.slack_chat.chat.post_message(
             text=message,
             channel=self.channel,

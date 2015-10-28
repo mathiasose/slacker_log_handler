@@ -3,16 +3,19 @@ import os
 
 from setuptools import setup
 
+VERSION = '1.1.1'
+
 
 def readme(*paths):
     with open(os.path.join(*paths), 'r') as f:
         return f.read()
 
+
 setup(
     name='slacker_log_handler',
     packages=['slacker_log_handler'],
     py_modules=['slacker_log_handler'],
-    version='1.1',
+    version=VERSION,
     description='Posts log events to Slack via API',
     long_description=readme('README.rst'),
     classifiers=[
@@ -31,7 +34,7 @@ setup(
         'Topic :: Office/Business :: Groupware',
     ],
     url='https://github.com/mathiasose/slacker_log_handler',
-    download_url='https://github.com/mathiasose/slacker_log_handler/tarball/1.1',
+    download_url='https://github.com/mathiasose/slacker_log_handler/tarball/{v}'.format(v=VERSION),
     author='Mathias Ose',
     author_email='mathias.ose@gmail.com',
     keywords=['slack', 'logging'],

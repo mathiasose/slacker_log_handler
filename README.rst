@@ -105,7 +105,7 @@ Sends INFO and ERRORS to Slack, as well as errors to admin emails.
                 'level': 'INFO',
                 'api_key': SLACK_API_KEY,
                 'class': 'slacker_log_handler.SlackerLogHandler',
-                'propagate': True,
+                'channel': '#general'
             },
         }
     }

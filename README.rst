@@ -80,6 +80,7 @@ Logging reference: https://docs.djangoproject.com/en/1.7/topics/logging/
 Sends INFO and ERRORS to Slack, as well as errors to admin emails.
 
 .. code-block:: python
+
     LOGGING = {
         'version': 1,
         'disable_existing_loggers': False,

@@ -80,7 +80,6 @@ Logging reference: https://docs.djangoproject.com/en/1.7/topics/logging/
 Sends INFO and ERRORS to Slack, as well as errors to admin emails.
 
 .. code-block:: python
-
     LOGGING = {
         'version': 1,
         'disable_existing_loggers': False,
@@ -107,6 +106,13 @@ Sends INFO and ERRORS to Slack, as well as errors to admin emails.
                 'class': 'slacker_log_handler.SlackerLogHandler',
                 'channel': '#general'
             },
+            'loggers': {
+                'django.request': {
+                    'handlers': ['mail_admins', 'slack-error', 'slack-info'],
+                    'level': 'ERROR',
+                    'propagate': True,
+                },
+            }
         }
     }
 

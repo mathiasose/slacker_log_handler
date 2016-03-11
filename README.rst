@@ -66,7 +66,7 @@ icon_emoji
 emoji to use as the icon. Overrides icon_url. If neither icon_url nor
 icon_emoji is set, :heavy_exclamation_mark: will be used.
 
-Suggested Django configuration
+Django configuration
 ------------------------------
 
 -  Add ``slacker_log_handler`` to ``INSTALLED_APPS``
@@ -75,7 +75,7 @@ Suggested Django configuration
 Sample Django logging configuration
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Logging reference: https://docs.djangoproject.com/en/1.7/topics/logging/
+Logging reference: https://docs.djangoproject.com/en/stable/topics/logging/
 
 Sends INFO and ERRORS to Slack, as well as errors to admin emails.
 

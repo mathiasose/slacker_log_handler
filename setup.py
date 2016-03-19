@@ -39,7 +39,7 @@ setup(
     author_email='mathias.ose@gmail.com',
     keywords=['slack', 'logging'],
     install_requires=[
-        'slacker==0.7.3'
+        'slacker==0.9.9'
     ],
     include_package_data=True,
     zip_safe=False

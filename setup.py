@@ -11,6 +11,11 @@ def readme(*paths):
         return f.read()
 
 
+def requirements(*paths):
+    with open(os.path.join(*paths), 'r') as f:
+        return list(line.strip() for line in f.readlines() if line.strip() != '')
+
+
 setup(
     name='slacker_log_handler',
     packages=['slacker_log_handler'],
@@ -38,9 +43,7 @@ setup(
     author='Mathias Ose',
     author_email='mathias.ose@gmail.com',
     keywords=['slack', 'logging'],
-    install_requires=[
-        'slacker==0.7.3'
-    ],
+    install_requires=requirements('requirements.txt'),
     include_package_data=True,
     zip_safe=False
 )

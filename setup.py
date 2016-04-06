@@ -19,7 +19,6 @@ def requirements(*paths):
 setup(
     name='slacker_log_handler',
     packages=['slacker_log_handler'],
-    py_modules=['slacker_log_handler'],
     version=VERSION,
     description='Posts log events to Slack via API',
     long_description=readme('README.rst'),

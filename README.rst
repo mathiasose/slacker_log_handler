@@ -117,6 +117,32 @@ Sends INFO and ERRORS to Slack, as well as errors to admin emails.
         }
     }
 
+Example python logging handler
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This is how you use slacker_log_handler as a regular python logging handler, this example will send a error message to a slack channel.
+
+.. code-block:: python
+
+    import logging
+    from slacker_log_handler import SlackerLogHandler
+
+    # Create logger
+    logger = logging.getLogger('debug_application')
+    logger.addHandler(slack_handler)
+
+    # Create slack handler
+    slack_handler = SlackerLogHandler('my-channel-token', 'my-channel-name')
+
+    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    # Add the handler to logger
+    slack_handler.setFormatter(formatter)
+    slack_handler.setLevel(logging.DEBUG)
+
+
+    # Test logging
+    logger.error("Debug message from slack!")
+
 License
 -------
 

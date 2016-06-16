@@ -68,16 +68,11 @@ icon_emoji is set, :heavy_exclamation_mark: will be used.
 
 Django configuration
 ------------------------------
-
--  Add ``slacker_log_handler`` to ``INSTALLED_APPS``
--  Set ``SLACK_API_KEY``
-
-Sample Django logging configuration
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
 Logging reference: https://docs.djangoproject.com/en/stable/topics/logging/
 
-Sends INFO and ERRORS to Slack, as well as errors to admin emails.
+This example will send INFO and ERRORS to Slack, as well as errors to admin emails.
+
+-  Set ``SLACK_API_KEY`` in your settings module.
 
 .. code-block:: python
 
@@ -117,10 +112,11 @@ Sends INFO and ERRORS to Slack, as well as errors to admin emails.
         }
     }
 
-Example python logging handler
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Example Python logging handler
+------------------------------
 
-This is how you use slacker_log_handler as a regular python logging handler, this example will send a error message to a slack channel.
+This is how you use `slacker_log_handler` as a regular Python logging handler.
+This example will send a error message to a slack channel.
 
 .. code-block:: python
 
@@ -150,4 +146,4 @@ Apache 2.0
 
 Slacker is also under Apache 2.0.
 
-https://api.slack.com/terms-of-service
+See also: https://api.slack.com/terms-of-service

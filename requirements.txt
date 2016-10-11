@@ -1,1 +1,1 @@
-slacker==0.9.25
+slacker==0.9.28

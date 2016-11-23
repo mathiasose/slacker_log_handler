@@ -29,22 +29,29 @@ class SlackerLogHandler(Handler):
             self.channel = '#' + self.channel
 
     def build_msg(self, record):
-        return record.getMessage()
+        return str(record.getMessage())
 
-    def emit(self, record):
-        message = str(self.build_msg(record))
+    def build_trace(self, record, fallback):
         trace = {
-            'fallback': message,
+            'fallback': fallback,
             'color': COLORS.get(self.level, INFO_COLOR)
         }
+
         if record.exc_info:
             trace['text'] = '\n'.join(traceback.format_exception(*record.exc_info))
-        attachments = [trace]
+
+        return trace
+
+    def emit(self, record):
+        message = self.build_msg(record)
+        trace = self.build_trace(record, fallback=message)
+        attachments = json.dumps([trace])
+
         self.slack_chat.chat.post_message(
             text=message,
             channel=self.channel,
             username=self.username,
             icon_url=self.icon_url,
             icon_emoji=self.icon_emoji,
-            attachments=json.dumps(attachments)
+            attachments=attachments,
         )

@@ -1,6 +1,6 @@
 import json
 import traceback
-from logging import Handler, CRITICAL, ERROR, WARNING
+from logging import Handler, CRITICAL, ERROR, WARNING, INFO, FATAL, DEBUG, NOTSET
 
 from slacker import Slacker
 
@@ -10,8 +10,12 @@ INFO_COLOR = '#439FE0'
 
 COLORS = {
     CRITICAL: ERROR_COLOR,
+    FATAL: ERROR_COLOR,
     ERROR: ERROR_COLOR,
-    WARNING: WARNING_COLOR
+    WARNING: WARNING_COLOR,
+    INFO: INFO_COLOR,
+    DEBUG: INFO_COLOR,
+    NOTSET: INFO_COLOR,
 }
 
 

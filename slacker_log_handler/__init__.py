@@ -18,6 +18,8 @@ COLORS = {
     NOTSET: INFO_COLOR,
 }
 
+DEFAULT_EMOJI = ':heavy_exclamation_mark:'
+
 
 class SlackerLogHandler(Handler):
     def __init__(self, api_key, channel, stack_trace=False, username='Python logger', icon_url=None, icon_emoji=None):
@@ -27,7 +29,7 @@ class SlackerLogHandler(Handler):
         self.stack_trace = stack_trace
         self.username = username
         self.icon_url = icon_url
-        self.icon_emoji = icon_emoji if (icon_emoji or icon_url) else ':heavy_exclamation_mark:'
+        self.icon_emoji = icon_emoji if (icon_emoji or icon_url) else DEFAULT_EMOJI
 
         if not self.channel.startswith('#'):
             self.channel = '#' + self.channel

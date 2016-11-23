@@ -125,7 +125,7 @@ This example will send a error message to a slack channel.
 
     # Create slack handler
     slack_handler = SlackerLogHandler('my-channel-token', 'my-channel-name')
-    
+
     # Create logger
     logger = logging.getLogger('debug_application')
     logger.addHandler(slack_handler)
@@ -138,6 +138,19 @@ This example will send a error message to a slack channel.
 
     # Test logging
     logger.error("Debug message from slack!")
+
+Message formatting
+-------------------
+
+This example use a subclass that will send a formatted message to a slack channel.
+Reference: https://api.slack.com/docs/message-formatting
+
+.. code-block:: python
+
+  class CustomLogHandler(SlackerLogHandler):
+      def build_msg(self, record):
+          message = "> New message :\n" + record.getMessage()
+          return message
 
 License
 -------

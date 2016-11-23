@@ -28,8 +28,11 @@ class SlackerLogHandler(Handler):
         if not self.channel.startswith('#'):
             self.channel = '#' + self.channel
 
+    def build_msg(self, record):
+        return record.getMessage()
+
     def emit(self, record):
-        message = str(record.getMessage())
+        message = str(self.build_msg(record))
         trace = {
             'fallback': message,
             'color': COLORS.get(self.level, INFO_COLOR)

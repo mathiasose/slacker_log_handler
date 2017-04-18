@@ -38,7 +38,7 @@ setup(
         'Topic :: Office/Business :: Groupware',
     ],
     url='https://github.com/mathiasose/slacker_log_handler',
-    download_url='https://github.com/mathiasose/slacker_log_handler/tarball/{v}'.format(v=VERSION),
+    download_url='https://github.com/mathiasose/slacker_log_handler/archive/{v}.tar.gz'.format(v=VERSION),
     author='Mathias Ose',
     author_email='mathias.ose@gmail.com',
     keywords=['slack', 'logging'],

@@ -66,6 +66,15 @@ icon_emoji
 emoji to use as the icon. Overrides icon_url. If neither icon_url nor
 icon_emoji is set, :heavy_exclamation_mark: will be used.
 
+fail_silent
+~~~~~~~~~~~
+Defaults to False.
+If your API key is invalid or for some other reason the API call returns an error,
+this option will silently ignore the API error.
+If you enable this setting, **make sure you have another log handler** that will also handle the same log events,
+or they may be lost entirely.
+
+
 Django configuration
 ------------------------------
 Logging reference: https://docs.djangoproject.com/en/stable/topics/logging/

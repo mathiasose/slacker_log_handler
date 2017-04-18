@@ -4,9 +4,6 @@ slacker_log_handler
 .. image:: https://img.shields.io/pypi/v/slacker_log_handler.svg?style=flat-square
     :target: https://pypi.python.org/pypi/slacker_log_handler
 
-.. image:: https://img.shields.io/pypi/dm/slacker_log_handler.svg?style=flat-square
-    :target: https://pypi.python.org/pypi/slacker_log_handler
-
 .. image:: https://img.shields.io/pypi/wheel/slacker_log_handler.svg?style=flat-square
     :target: https://pypi.python.org/pypi/slacker_log_handler
 

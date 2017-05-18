@@ -2,6 +2,7 @@ import json
 import traceback
 from logging import Handler, CRITICAL, ERROR, WARNING, INFO, FATAL, DEBUG, NOTSET
 
+import six
 import slacker
 
 ERROR_COLOR = 'danger'  # color name is built in to Slack API
@@ -37,7 +38,7 @@ class SlackerLogHandler(Handler):
             self.channel = '#' + self.channel
 
     def build_msg(self, record):
-        return str(record.getMessage())
+        return six.text_type(record.getMessage())
 
     def build_trace(self, record, fallback):
         trace = {

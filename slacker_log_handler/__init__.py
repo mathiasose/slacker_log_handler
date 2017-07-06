@@ -38,7 +38,7 @@ class SlackerLogHandler(Handler):
             self.channel = '#' + self.channel
 
     def build_msg(self, record):
-        return six.text_type(record.getMessage())
+        return six.text_type(self.format(record))
 
     def build_trace(self, record, fallback):
         trace = {

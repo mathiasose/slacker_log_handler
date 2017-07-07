@@ -127,25 +127,28 @@ This example will send a error message to a slack channel.
 .. code-block:: python
 
     import logging
-    from slacker_log_handler import SlackerLogHandler
+    from slacker_log_handler import SlackerLogHandler, NoStacktraceFormatter
 
     # Create slack handler
-    slack_handler = SlackerLogHandler('my-channel-token', 'my-channel-name')
+    slack_handler = SlackerLogHandler('my-channel-token', 'my-channel-name', stack_trace=True)
 
     # Create logger
     logger = logging.getLogger('debug_application')
     logger.addHandler(slack_handler)
 
-    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-    # Add the handler to logger
+    # OPTIONAL: Define a log message formatter.
+    # If you have set stack_trace=True, any exception stack traces will be included as Slack message attachments.
+    # You therefore need to use NoStacktraceFormatter as a base to exclude the trace from the main message text.
+    formatter = NoStacktraceFormatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
     slack_handler.setFormatter(formatter)
-    slack_handler.setLevel(logging.DEBUG)
 
+    # Define the minimum level of log messages you want to send to Slack
+    slack_handler.setLevel(logging.DEBUG)
 
     # Test logging
     logger.error("Debug message from slack!")
 
-Message formatting
+Slack message formatting
 -------------------
 
 This example use a subclass that will send a formatted message to a slack channel.

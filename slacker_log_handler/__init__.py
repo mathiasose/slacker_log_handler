@@ -1,6 +1,6 @@
 import json
 import traceback
-from logging import Handler, CRITICAL, ERROR, WARNING, INFO, FATAL, DEBUG, NOTSET
+from logging import Handler, CRITICAL, ERROR, WARNING, INFO, FATAL, DEBUG, NOTSET, Formatter
 
 import six
 import slacker
@@ -22,18 +22,31 @@ COLORS = {
 DEFAULT_EMOJI = ':heavy_exclamation_mark:'
 
 
+class NoStacktraceFormatter(Formatter):
+    """
+    By default the stacktrace will be formatted as part of the message.
+    Since we want the stacktrace to be in the attachment of the Slack message,
+     we need a custom formatter to leave it out of the message
+    """
+
+    def formatException(self, ei):
+        return None
+
+
 class SlackerLogHandler(Handler):
     def __init__(self, api_key, channel, stack_trace=False, username='Python logger', icon_url=None, icon_emoji=None,
                  fail_silent=False):
         Handler.__init__(self)
-        self.slacker = slacker.Slacker(api_key)
-        self.channel = channel
+        self.formatter = NoStacktraceFormatter()
+
         self.stack_trace = stack_trace
+        self.fail_silent = fail_silent
+
+        self.slacker = slacker.Slacker(api_key)
         self.username = username
         self.icon_url = icon_url
         self.icon_emoji = icon_emoji if (icon_emoji or icon_url) else DEFAULT_EMOJI
-        self.fail_silent = fail_silent
-
+        self.channel = channel
         if not self.channel.startswith('#'):
             self.channel = '#' + self.channel
 
@@ -53,8 +66,12 @@ class SlackerLogHandler(Handler):
 
     def emit(self, record):
         message = self.build_msg(record)
-        trace = self.build_trace(record, fallback=message)
-        attachments = json.dumps([trace])
+
+        if self.stack_trace:
+            trace = self.build_trace(record, fallback=message)
+            attachments = json.dumps([trace])
+        else:
+            attachments = None
 
         try:
             self.slacker.chat.post_message(

@@ -34,7 +34,7 @@ class NoStacktraceFormatter(Formatter):
 
 
 class SlackerLogHandler(Handler):
-    def __init__(self, api_key, channel, stack_trace=False, username='Python logger', icon_url=None, icon_emoji=None,
+    def __init__(self, api_key, channel, stack_trace=True, username='Python logger', icon_url=None, icon_emoji=None,
                  fail_silent=False):
         Handler.__init__(self)
         self.formatter = NoStacktraceFormatter()

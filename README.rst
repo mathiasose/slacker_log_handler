@@ -1,5 +1,5 @@
 slacker_log_handler
-=====================
+===================
 
 .. image:: https://img.shields.io/pypi/v/slacker_log_handler.svg?style=flat-square
     :target: https://pypi.python.org/pypi/slacker_log_handler
@@ -38,7 +38,7 @@ Options
 -------
 
 api_key (required)
-~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~
 
 Generate a key at https://api.slack.com/
 
@@ -53,12 +53,12 @@ username
 The username that will post to Slack. Defaults to "Python logger".
 
 icon_url
-~~~~~~~~~
+~~~~~~~~
 
 URL to an image to use as the icon for the logger user
 
 icon_emoji
-~~~~~~~~~~~
+~~~~~~~~~~
 
 emoji to use as the icon. Overrides icon_url. If neither icon_url nor
 icon_emoji is set, :heavy_exclamation_mark: will be used.
@@ -73,7 +73,7 @@ or they may be lost entirely.
 
 
 Django configuration
-------------------------------
+--------------------
 Logging reference: https://docs.djangoproject.com/en/stable/topics/logging/
 
 This example will send INFO and ERRORS to Slack, as well as errors to admin emails.
@@ -149,7 +149,7 @@ This example will send a error message to a slack channel.
     logger.error("Debug message from slack!")
 
 Slack message formatting
--------------------
+------------------------
 
 This example use a subclass that will send a formatted message to a slack channel.
 Reference: https://api.slack.com/docs/message-formatting

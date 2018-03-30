@@ -47,7 +47,7 @@ class SlackerLogHandler(Handler):
         self.icon_url = icon_url
         self.icon_emoji = icon_emoji if (icon_emoji or icon_url) else DEFAULT_EMOJI
         self.channel = channel
-        if not self.channel.startswith('#'):
+        if not self.channel.startswith('#') and not self.channel.startswith('@'):
             self.channel = '#' + self.channel
 
     def build_msg(self, record):

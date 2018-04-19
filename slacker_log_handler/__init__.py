@@ -35,7 +35,7 @@ class NoStacktraceFormatter(Formatter):
 
 class SlackerLogHandler(Handler):
     def __init__(self, api_key, channel, stack_trace=True, username='Python logger', icon_url=None, icon_emoji=None,
-                 fail_silent=False, ping_user=None, ping_level=None):
+                 fail_silent=False, ping_users=None, ping_level=None):
         Handler.__init__(self)
         self.formatter = NoStacktraceFormatter()
 
@@ -44,23 +44,30 @@ class SlackerLogHandler(Handler):
 
         self.slacker = slacker.Slacker(api_key)
 
-        self.ping_level = ping_level
-        if not ping_user:
-            self.ping_user = None
-        else:
-            for user in self.slacker.users.list().body['members']:
-                if user['name'] == ping_user:
-                    self.ping_user = user['id']
-                    break
-            if not self.ping_user:
-                raise RuntimeError('User not found in Slack users list: %s' % ping_user)
-
         self.username = username
         self.icon_url = icon_url
         self.icon_emoji = icon_emoji if (icon_emoji or icon_url) else DEFAULT_EMOJI
         self.channel = channel
         if not self.channel.startswith('#') and not self.channel.startswith('@'):
             self.channel = '#' + self.channel
+
+        self.ping_level = ping_level
+        self.ping_users = []
+
+        if ping_users:
+            user_list = self.slacker.users.list().body['members']
+
+            for ping_user in ping_users:
+                ping_user = ping_user.lstrip('@')
+
+                for user in user_list:
+                    if user['name'] == ping_user:
+                        self.ping_users.append(user['id'])
+                        break
+                else:
+                    raise RuntimeError('User not found in Slack users list: %s' % ping_user)
+
+
 
     def build_msg(self, record):
         return six.text_type(self.format(record))
@@ -79,8 +86,9 @@ class SlackerLogHandler(Handler):
     def emit(self, record):
         message = self.build_msg(record)
 
-        if self.ping_user and record.levelno >= self.ping_level:
-            message = '<@%s> %s' % (self.ping_user, message)
+        if self.ping_users and record.levelno >= self.ping_level:
+            for user in self.ping_users:
+                message = '<@%s> %s' % (user, message)
 
         if self.stack_trace:
             trace = self.build_trace(record, fallback=message)

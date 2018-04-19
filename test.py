@@ -7,7 +7,7 @@ from slacker_log_handler import SlackerLogHandler, NoStacktraceFormatter
 SLACK_API_TOKEN = os.getenv('SLACK_API_TOKEN')
 SLACK_CHANNEL = os.getenv('SLACK_CHANNEL')
 
-slack_handler = SlackerLogHandler(SLACK_API_TOKEN, SLACK_CHANNEL, stack_trace=True)
+slack_handler = SlackerLogHandler(SLACK_API_TOKEN, SLACK_CHANNEL, stack_trace=True, ping_users=["@ose", "slackbot"], ping_level=logging.ERROR)
 
 logger = logging.getLogger('debug_application')
 logger.addHandler(slack_handler)

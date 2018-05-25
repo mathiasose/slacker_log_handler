@@ -8,11 +8,12 @@ So that the package maintainer won't have to google it every time.
 1. git checkout master
 2. git pull
 3. Update version number in setup.py
-4. git commit
-5. git push
-6. git tag X.X.X -m "vX.X.X"
-7. git push --tags
-8. python setup.py sdist upload -r pypitest
-9. Check that things look right on https://testpypi.python.org/pypi/slacker_log_handler
-10. python setup.py sdist upload -r pypi
-11. Check that things look right on https://pypi.python.org/pypi/slacker_log_handler
+4. git add setup.py
+5. git commit
+6. git push
+7. git tag X.X.X -m "vX.X.X"
+8. git push --tags
+9. python setup.py sdist upload -r pypitest
+10. Check that things look right on https://test.pypi.org/project/slacker_log_handler/
+11. python setup.py sdist upload -r pypi
+12. Check that things look right on https://pypi.org/project/slacker-log-handler/

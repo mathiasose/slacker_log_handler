@@ -32,6 +32,15 @@ class NoStacktraceFormatter(Formatter):
     def formatException(self, ei):
         return None
 
+    def format(self, record):
+        # Work-around for https://bugs.python.org/issue29056
+        saved_exc_text = record.exc_text
+        record.exc_text = None
+        try:
+            return super(NoStacktraceFormatter, self).format(record)
+        finally:
+            record.exc_text = saved_exc_text
+
 
 class SlackerLogHandler(Handler):
     def __init__(self, api_key, channel, stack_trace=True, username='Python logger', icon_url=None, icon_emoji=None,

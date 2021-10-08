@@ -72,13 +72,12 @@ class SlackerLogHandler(Handler):
         self.ping_users = []
 
         if ping_users:
-            user_list = self.slacker.users.list().body["members"]
+            user_list = self.slacker.users_list()["members"]
 
             for ping_user in ping_users:
-                ping_user = ping_user.lstrip("@")
 
                 for user in user_list:
-                    if user["name"] == ping_user:
+                    if user["profile"].get("email") == ping_user:
                         self.ping_users.append(user["id"])
                         break
                 else:

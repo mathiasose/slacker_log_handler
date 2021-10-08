@@ -6,9 +6,9 @@ import six
 from slack_sdk import WebClient
 from slack_sdk.errors import SlackApiError
 
-ERROR_COLOR = 'danger'  # color name is built in to Slack API
-WARNING_COLOR = 'warning'  # color name is built in to Slack API
-INFO_COLOR = '#439FE0'
+ERROR_COLOR = "danger"  # color name is built in to Slack API
+WARNING_COLOR = "warning"  # color name is built in to Slack API
+INFO_COLOR = "#439FE0"
 
 COLORS = {
     CRITICAL: ERROR_COLOR,
@@ -20,7 +20,7 @@ COLORS = {
     NOTSET: INFO_COLOR,
 }
 
-DEFAULT_EMOJI = ':heavy_exclamation_mark:'
+DEFAULT_EMOJI = ":popcat:"
 
 
 class NoStacktraceFormatter(Formatter):
@@ -44,8 +44,18 @@ class NoStacktraceFormatter(Formatter):
 
 
 class SlackerLogHandler(Handler):
-    def __init__(self, api_key, channel, stack_trace=True, username='Python logger', icon_url=None, icon_emoji=None,
-                 fail_silent=False, ping_users=None, ping_level=None):
+    def __init__(
+        self,
+        api_key,
+        channel,
+        stack_trace=True,
+        username="Python logger",
+        icon_url=None,
+        icon_emoji=None,
+        fail_silent=False,
+        ping_users=None,
+        ping_level=None,
+    ):
         Handler.__init__(self)
         self.formatter = NoStacktraceFormatter()
 
@@ -62,31 +72,26 @@ class SlackerLogHandler(Handler):
         self.ping_users = []
 
         if ping_users:
-            user_list = self.slacker.users.list().body['members']
+            user_list = self.slacker.users.list().body["members"]
 
             for ping_user in ping_users:
-                ping_user = ping_user.lstrip('@')
+                ping_user = ping_user.lstrip("@")
 
                 for user in user_list:
-                    if user['name'] == ping_user:
-                        self.ping_users.append(user['id'])
+                    if user["name"] == ping_user:
+                        self.ping_users.append(user["id"])
                         break
                 else:
-                    raise RuntimeError('User not found in Slack users list: %s' % ping_user)
-
-
+                    raise RuntimeError("User not found in Slack users list: %s" % ping_user)
 
     def build_msg(self, record):
         return six.text_type(self.format(record))
 
     def build_trace(self, record, fallback):
-        trace = {
-            'fallback': fallback,
-            'color': COLORS.get(self.level, INFO_COLOR)
-        }
+        trace = {"fallback": fallback, "color": COLORS.get(self.level, INFO_COLOR)}
 
         if record.exc_info:
-            trace['text'] = '\n'.join(traceback.format_exception(*record.exc_info))
+            trace["text"] = "\n".join(traceback.format_exception(*record.exc_info))
 
         return trace
 
@@ -95,7 +100,7 @@ class SlackerLogHandler(Handler):
 
         if self.ping_users and record.levelno >= self.ping_level:
             for user in self.ping_users:
-                message = '<@%s> %s' % (user, message)
+                message = "<@%s> %s" % (user, message)
 
         if self.stack_trace:
             trace = self.build_trace(record, fallback=message)

@@ -4,28 +4,37 @@ from platform import python_version
 
 from slacker_log_handler import SlackerLogHandler, NoStacktraceFormatter
 
-SLACK_API_TOKEN = os.getenv('SLACK_API_TOKEN')
-SLACK_CHANNEL = os.getenv('SLACK_CHANNEL')
+SLACK_API_TOKEN = os.getenv("SLACK_API_TOKEN")
+SLACK_CHANNEL = os.getenv("SLACK_CHANNEL")
 
-slack_handler = SlackerLogHandler(SLACK_API_TOKEN, SLACK_CHANNEL, stack_trace=True, ping_users=["@ose", "slackbot"], ping_level=logging.ERROR)
-
-logger = logging.getLogger('debug_application')
+slack_handler = SlackerLogHandler(
+    api_key=SLACK_API_TOKEN,
+    channel=SLACK_CHANNEL,
+    stack_trace=True,
+    username="Logger Test",
+    icon_url=None,
+    icon_emoji=None,
+    fail_silent=False,
+    ping_users=None,
+    ping_level=logging.ERROR,
+)
+logger = logging.getLogger("debug_application")
 logger.addHandler(slack_handler)
 logger.setLevel(logging.DEBUG)
 
-formatter = NoStacktraceFormatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+formatter = NoStacktraceFormatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
 slack_handler.setFormatter(formatter)
 
-logger.info('Python version is {}'.format(python_version()))
+logger.info("Python version is {}".format(python_version()))
 
-logger.debug('Test DEBUG')
-logger.info('Test INFO')
-logger.warning('Test WARNING')
-logger.error('Test ERROR')
-logger.fatal('Test FATAL')
-logger.critical('Test CRITICAL')
+logger.debug("Test DEBUG")
+logger.info("Test INFO")
+logger.warning("Test WARNING")
+logger.error("Test ERROR")
+logger.fatal("Test FATAL")
+logger.critical("Test CRITICAL")
 
 try:
-    raise Exception('Test exception')
+    raise Exception("Test exception")
 except Exception as e:
     logger.exception(e)

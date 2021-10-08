@@ -3,7 +3,8 @@ import traceback
 from logging import Handler, CRITICAL, ERROR, WARNING, INFO, FATAL, DEBUG, NOTSET, Formatter
 
 import six
-import slacker
+from slack_sdk import WebClient
+from slack_sdk.errors import SlackApiError
 
 ERROR_COLOR = 'danger'  # color name is built in to Slack API
 WARNING_COLOR = 'warning'  # color name is built in to Slack API
@@ -51,15 +52,12 @@ class SlackerLogHandler(Handler):
         self.stack_trace = stack_trace
         self.fail_silent = fail_silent
 
-        self.slacker = slacker.Slacker(api_key)
+        self.slacker = WebClient(api_key)
 
         self.username = username
         self.icon_url = icon_url
         self.icon_emoji = icon_emoji if (icon_emoji or icon_url) else DEFAULT_EMOJI
         self.channel = channel
-        if not self.channel.startswith('#') and not self.channel.startswith('@'):
-            self.channel = '#' + self.channel
-
         self.ping_level = ping_level
         self.ping_users = []
 
@@ -106,7 +104,7 @@ class SlackerLogHandler(Handler):
             attachments = None
 
         try:
-            self.slacker.chat.post_message(
+            self.slacker.chat_postMessage(
                 text=message,
                 channel=self.channel,
                 username=self.username,
@@ -114,8 +112,10 @@ class SlackerLogHandler(Handler):
                 icon_emoji=self.icon_emoji,
                 attachments=attachments,
             )
-        except slacker.Error as e:
+        except SlackApiError as e:
             if self.fail_silent:
                 pass
             else:
-                raise e
+                assert e.response["ok"] == False
+                assert e.response["error"]
+                raise Exception(f"Error: {e.response['error']}")
